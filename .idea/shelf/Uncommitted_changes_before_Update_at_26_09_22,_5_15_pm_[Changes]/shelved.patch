@@ -1,0 +1,304 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"e821c4e9-c40a-4a33-acf8-58b2d23f020b\" name=\"Changes\" comment=\"speech emotion recognition commit 2\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2FEe4JbwyJz6brNQONzui07EyTe\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"last_opened_file_path\": \"/Users/harikrushnareddyvangala/Documents/GitHub/_Scraped/DataScience_Projects\",\n    \"settings.editor.selected.configurable\": \"advanced.settings\"\n  }\n}]]></component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"e821c4e9-c40a-4a33-acf8-58b2d23f020b\" name=\"Changes\" comment=\"\" />\n      <created>1664061478440</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1664061478440</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"speech emotion recognition commit\">\n      <created>1664067167923</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1664067167923</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <MESSAGE value=\"speech emotion recognition commit\" />\n    <MESSAGE value=\"speech emotion recognition commit 2\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"speech emotion recognition commit 2\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e12410e4f92706f1bf5e891fd8062f50a636ab7f)
++++ b/.idea/workspace.xml	(date 1664068098721)
+@@ -13,6 +13,9 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
+   <component name="ProjectId" id="2FEe4JbwyJz6brNQONzui07EyTe" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+     <ConfirmationsSetting value="2" id="Add" />
+@@ -46,7 +49,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1664067167923</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="speech emotion recognition commit 2">
++      <created>1664068070319</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1664068070320</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+Index: Breast Cancer Detection/breast-cancer-classification/build_dataset.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Breast Cancer Detection/breast-cancer-classification/build_dataset.py b/Breast Cancer Detection/breast-cancer-classification/build_dataset.py
+new file mode 100644
+--- /dev/null	(date 1566902818000)
++++ b/Breast Cancer Detection/breast-cancer-classification/build_dataset.py	(date 1566902818000)
+@@ -0,0 +1,39 @@
++from cancernet import config
++from imutils import paths
++import random, shutil, os
++
++originalPaths=list(paths.list_images(config.INPUT_DATASET))
++random.seed(7)
++random.shuffle(originalPaths)
++
++index=int(len(originalPaths)*config.TRAIN_SPLIT)
++trainPaths=originalPaths[:index]
++testPaths=originalPaths[index:]
++
++index=int(len(trainPaths)*config.VAL_SPLIT)
++valPaths=trainPaths[:index]
++trainPaths=trainPaths[index:]
++
++datasets=[("training", trainPaths, config.TRAIN_PATH),
++          ("validation", valPaths, config.VAL_PATH),
++          ("testing", testPaths, config.TEST_PATH)
++]
++
++for (setType, originalPaths, basePath) in datasets:
++        print(f'Building {setType} set')
++
++        if not os.path.exists(basePath):
++                print(f'Building directory {basePath}')
++                os.makedirs(basePath)
++
++        for path in originalPaths:
++                file=path.split(os.path.sep)[-1]
++                label=file[-5:-4]
++
++                labelPath=os.path.sep.join([basePath,label])
++                if not os.path.exists(labelPath):
++                        print(f'Building directory {labelPath}')
++                        os.makedirs(labelPath)
++
++                newPath=os.path.sep.join([labelPath, file])
++                shutil.copy2(path, newPath)
+Index: Breast Cancer Detection/breast-cancer-classification/breastcancerclassification.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Breast Cancer Detection/breast-cancer-classification/breastcancerclassification.py b/Breast Cancer Detection/breast-cancer-classification/breastcancerclassification.py
+new file mode 100644
+--- /dev/null	(date 1664163363841)
++++ b/Breast Cancer Detection/breast-cancer-classification/breastcancerclassification.py	(date 1664163363841)
+@@ -0,0 +1,4 @@
++# This is a sample Python script.
++#dataset: https://www.kaggle.com/paultimothymooney/breast-histopathology-images/
++#packages required: numpy, opencv-python, pillow, tensorflow, keras, imutils, scikit-learn, matplotlib
++
+Index: Breast Cancer Detection/breast-cancer-classification/train_model.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Breast Cancer Detection/breast-cancer-classification/train_model.py b/Breast Cancer Detection/breast-cancer-classification/train_model.py
+new file mode 100644
+--- /dev/null	(date 1664191666849)
++++ b/Breast Cancer Detection/breast-cancer-classification/train_model.py	(date 1664191666849)
+@@ -0,0 +1,107 @@
++import matplotlib
++matplotlib.use("Agg")
++
++from keras.preprocessing.image import ImageDataGenerator
++from keras.callbacks import LearningRateScheduler
++from keras.optimizers import Adagrad
++from keras.layers.normalization import BatchNormalization
++from keras.utils import np_utils
++from sklearn.metrics import classification_report
++from sklearn.metrics import confusion_matrix
++from cancernet.cancernet import CancerNet
++from cancernet import config
++from imutils import paths
++import matplotlib.pyplot as plt
++import numpy as np
++import os
++
++NUM_EPOCHS=40; INIT_LR=1e-2; BS=32
++
++trainPaths=list(paths.list_images(config.TRAIN_PATH))
++lenTrain=len(trainPaths)
++lenVal=len(list(paths.list_images(config.VAL_PATH)))
++lenTest=len(list(paths.list_images(config.TEST_PATH)))
++
++trainLabels=[int(p.split(os.path.sep)[-2]) for p in trainPaths]
++trainLabels=np_utils.to_categorical(trainLabels)
++classTotals=trainLabels.sum(axis=0)
++classWeight=classTotals.max()/classTotals
++
++trainAug = ImageDataGenerator(
++	rescale=1/255.0,
++	rotation_range=20,
++	zoom_range=0.05,
++	width_shift_range=0.1,
++	height_shift_range=0.1,
++	shear_range=0.05,
++	horizontal_flip=True,
++	vertical_flip=True,
++	fill_mode="nearest")
++
++valAug=ImageDataGenerator(rescale=1 / 255.0)
++
++trainGen = trainAug.flow_from_directory(
++	config.TRAIN_PATH,
++	class_mode="categorical",
++	target_size=(48,48),
++	color_mode="rgb",
++	shuffle=True,
++	batch_size=BS)
++valGen = valAug.flow_from_directory(
++	config.VAL_PATH,
++	class_mode="categorical",
++	target_size=(48,48),
++	color_mode="rgb",
++	shuffle=False,
++	batch_size=BS)
++testGen = valAug.flow_from_directory(
++	config.TEST_PATH,
++	class_mode="categorical",
++	target_size=(48,48),
++	color_mode="rgb",
++	shuffle=False,
++	batch_size=BS)
++
++model=CancerNet.build(width=48,height=48,depth=3,classes=2)
++opt=Adagrad(lr=INIT_LR,decay=INIT_LR/NUM_EPOCHS)
++model.compile(loss="binary_crossentropy",optimizer=opt,metrics=["accuracy"])
++
++
++M=model.fit_generator(
++	trainGen,
++	steps_per_epoch=lenTrain//BS,
++	validation_data=valGen,
++	validation_steps=lenVal//BS,
++	class_weight=classWeight,
++	epochs=NUM_EPOCHS)
++
++print("Now evaluating the model")
++testGen.reset()
++pred_indices=model.predict_generator(testGen,steps=(lenTest//BS)+1)
++
++pred_indices=np.argmax(pred_indices,axis=1)
++
++print(classification_report(testGen.classes, pred_indices, target_names=testGen.class_indices.keys()))
++
++cm=confusion_matrix(testGen.classes,pred_indices)
++total=sum(sum(cm))
++accuracy=(cm[0,0]+cm[1,1])/total
++specificity=cm[1,1]/(cm[1,0]+cm[1,1])
++sensitivity=cm[0,0]/(cm[0,0]+cm[0,1])
++print(cm)
++print(f'Accuracy: {accuracy}')
++print(f'Specificity: {specificity}')
++print(f'Sensitivity: {sensitivity}')
++
++N = NUM_EPOCHS
++plt.style.use("ggplot")
++plt.figure()
++plt.plot(np.arange(0,N), M.history["loss"], label="train_loss")
++plt.plot(np.arange(0,N), M.history["val_loss"], label="val_loss")
++plt.plot(np.arange(0,N), M.history["acc"], label="train_acc")
++plt.plot(np.arange(0,N), M.history["val_acc"], label="val_acc")
++plt.title("Training Loss and Accuracy on the IDC Dataset")
++plt.xlabel("Epoch No.")
++plt.ylabel("Loss/Accuracy")
++plt.legend(loc="lower left")
++plt.savefig('plot.png')
+Index: Breast Cancer Detection/breast-cancer-classification/cancernet/cancernet.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Breast Cancer Detection/breast-cancer-classification/cancernet/cancernet.py b/Breast Cancer Detection/breast-cancer-classification/cancernet/cancernet.py
+new file mode 100644
+--- /dev/null	(date 1664191868201)
++++ b/Breast Cancer Detection/breast-cancer-classification/cancernet/cancernet.py	(date 1664191868201)
+@@ -0,0 +1,55 @@
++from tensorflow.keras.models import Sequential
++from tensorflow.keras.layers import (
++    BatchNormalization, SeparableConv2D, MaxPooling2D, Activation, Flatten, Dropout, Dense
++)
++from tensorflow.keras import backend as K
++
++
++class CancerNet:
++	@staticmethod
++	def build(width,height,depth,classes):
++		model=Sequential()
++		shape=(height,width,depth)
++		channelDim=-1
++
++		if K.image_data_format()=="channels_first":
++			shape=(depth,height,width)
++			channelDim=1
++
++		model.add(SeparableConv2D(32, (3,3), padding="same",input_shape=shape))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization(axis=channelDim))
++		model.add(MaxPooling2D(pool_size=(2,2)))
++		model.add(Dropout(0.25))
++
++		model.add(SeparableConv2D(64, (3,3), padding="same"))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization(axis=channelDim))
++		model.add(SeparableConv2D(64, (3,3), padding="same"))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization(axis=channelDim))
++		model.add(MaxPooling2D(pool_size=(2,2)))
++		model.add(Dropout(0.25))
++
++		model.add(SeparableConv2D(128, (3,3), padding="same"))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization(axis=channelDim))
++		model.add(SeparableConv2D(128, (3,3), padding="same"))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization(axis=channelDim))
++		model.add(SeparableConv2D(128, (3,3), padding="same"))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization(axis=channelDim))
++		model.add(MaxPooling2D(pool_size=(2,2)))
++		model.add(Dropout(0.25))
++
++		model.add(Flatten())
++		model.add(Dense(256))
++		model.add(Activation("relu"))
++		model.add(BatchNormalization())
++		model.add(Dropout(0.5))
++
++		model.add(Dense(classes))
++		model.add(Activation("softmax"))
++
++		return model
+Index: Breast Cancer Detection/breast-cancer-classification/cancernet/config.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Breast Cancer Detection/breast-cancer-classification/cancernet/config.py b/Breast Cancer Detection/breast-cancer-classification/cancernet/config.py
+new file mode 100644
+--- /dev/null	(date 1566886020000)
++++ b/Breast Cancer Detection/breast-cancer-classification/cancernet/config.py	(date 1566886020000)
+@@ -0,0 +1,11 @@
++import os
++
++INPUT_DATASET = "datasets/original"
++
++BASE_PATH = "datasets/idc"
++TRAIN_PATH = os.path.sep.join([BASE_PATH, "training"])
++VAL_PATH = os.path.sep.join([BASE_PATH, "validation"])
++TEST_PATH = os.path.sep.join([BASE_PATH, "testing"])
++
++TRAIN_SPLIT = 0.8
++VAL_SPLIT = 0.1
+diff --git a/Breast Cancer Detection/breast-cancer-classification/cancernet/__init__.py b/Breast Cancer Detection/breast-cancer-classification/cancernet/__init__.py
+new file mode 100644
