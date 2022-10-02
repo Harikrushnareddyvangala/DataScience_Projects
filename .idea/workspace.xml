@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e821c4e9-c40a-4a33-acf8-58b2d23f020b" name="Changes" comment="this commit includes the face mask detection application using opencv">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="e821c4e9-c40a-4a33-acf8-58b2d23f020b" name="Changes" comment="this commit includes the Cartoonfication of images application using opencv" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664274242878</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="this commit includes the Cartoonfication of images application using opencv">
+      <created>1664730085741</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1664730085741</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,6 +126,7 @@
     <MESSAGE value="speech emotion recognition commit 2" />
     <MESSAGE value="this commit includes the breast cancer detection" />
     <MESSAGE value="this commit includes the face mask detection application using opencv" />
-    <option name="LAST_COMMIT_MESSAGE" value="this commit includes the face mask detection application using opencv" />
+    <MESSAGE value="this commit includes the Cartoonfication of images application using opencv" />
+    <option name="LAST_COMMIT_MESSAGE" value="this commit includes the Cartoonfication of images application using opencv" />
   </component>
 </project>
